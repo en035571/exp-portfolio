@@ -269,9 +269,63 @@ export default function Home() {
     const r2 = document.getElementById('row2')
     if (r1) r1.addEventListener('wheel', handleWheel1, { passive: false })
     if (r2) r2.addEventListener('wheel', handleWheel2, { passive: false })
+
+    // Touch/swipe support for mobile
+    let touch1Start = null
+    let touch2Start = null
+    function handleTouch1Start(e) { touch1Start = e.touches[0].clientX; row1PausedRef.current = true }
+    function handleTouch1Move(e) {
+      if (touch1Start === null) return
+      e.preventDefault()
+      const sw = row1SetWidthRef.current
+      if (sw <= 0) return
+      const diff = e.touches[0].clientX - touch1Start
+      touch1Start = e.touches[0].clientX
+      row1PosRef.current += diff * 1.2
+      if (Math.abs(row1PosRef.current) >= sw) row1PosRef.current += sw
+      else if (row1PosRef.current > 0) row1PosRef.current -= sw
+      if (row1Ref.current) row1Ref.current.style.transform = `translateX(${row1PosRef.current}px)`
+    }
+    function handleTouch1End() { touch1Start = null; row1PausedRef.current = false }
+    function handleTouch2Start(e) { touch2Start = e.touches[0].clientX; row2PausedRef.current = true }
+    function handleTouch2Move(e) {
+      if (touch2Start === null) return
+      e.preventDefault()
+      const sw = row2SetWidthRef.current
+      if (sw <= 0) return
+      const diff = e.touches[0].clientX - touch2Start
+      touch2Start = e.touches[0].clientX
+      row2PosRef.current += diff * 1.2
+      if (row2PosRef.current >= 0) row2PosRef.current -= sw
+      else if (Math.abs(row2PosRef.current) >= sw * 2) row2PosRef.current += sw
+      if (row2Ref.current) row2Ref.current.style.transform = `translateX(${row2PosRef.current}px)`
+    }
+    function handleTouch2End() { touch2Start = null; row2PausedRef.current = false }
+
+    if (r1) {
+      r1.addEventListener('touchstart', handleTouch1Start, { passive: true })
+      r1.addEventListener('touchmove', handleTouch1Move, { passive: false })
+      r1.addEventListener('touchend', handleTouch1End)
+    }
+    if (r2) {
+      r2.addEventListener('touchstart', handleTouch2Start, { passive: true })
+      r2.addEventListener('touchmove', handleTouch2Move, { passive: false })
+      r2.addEventListener('touchend', handleTouch2End)
+    }
+
     return () => {
-      if (r1) r1.removeEventListener('wheel', handleWheel1)
-      if (r2) r2.removeEventListener('wheel', handleWheel2)
+      if (r1) {
+        r1.removeEventListener('wheel', handleWheel1)
+        r1.removeEventListener('touchstart', handleTouch1Start)
+        r1.removeEventListener('touchmove', handleTouch1Move)
+        r1.removeEventListener('touchend', handleTouch1End)
+      }
+      if (r2) {
+        r2.removeEventListener('wheel', handleWheel2)
+        r2.removeEventListener('touchstart', handleTouch2Start)
+        r2.removeEventListener('touchmove', handleTouch2Move)
+        r2.removeEventListener('touchend', handleTouch2End)
+      }
     }
   }, [])
 

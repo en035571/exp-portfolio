@@ -991,7 +991,6 @@ html, body {
   .detail-panel-image {
     width: 100%;
     flex: none;
-    aspect-ratio: 4 / 5;
   }
 
   .detail-thumbnails {
