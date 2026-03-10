@@ -547,12 +547,14 @@ export default function Home() {
           <div className="about-clientele">
             <h4>Select Clientele:</h4>
             <ul>
-              <li>Motivny</li>
+              <li>Nike</li>
               <li>Usal Project</li>
+              <li>Bonnie Clyde</li>
               <li>Leon Thomas</li>
               <li>UMI</li>
               <li>Interscope</li>
               <li>Reebok</li>
+              <li>Salomon</li>
               <li>Paris Texas</li>
               <li>Oxis</li>
               <li>Love Spells</li>
