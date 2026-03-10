@@ -3,6 +3,9 @@ import './globals.css'
 export const metadata = {
   title: 'EXP — Design & Creative Agency',
   description: 'EXP is a design & creative agency based in Los Angeles, CA',
+  icons: {
+    icon: '/exp.svg',
+  },
 }
 
 export const viewport = {
