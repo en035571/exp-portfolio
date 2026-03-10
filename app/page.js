@@ -509,7 +509,7 @@ export default function Home() {
                       className={`detail-thumb${idx === currentImageIndex ? ' active' : ''}`}
                       onClick={() => setCurrentImageIndex(idx)}
                     >
-                      <img src={img} alt="" />
+                      <img src={img} alt="" loading="lazy" />
                     </div>
                   ))}
                 </div>
