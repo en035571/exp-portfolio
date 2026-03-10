@@ -5,6 +5,11 @@ export const metadata = {
   description: 'EXP is a design & creative agency based in Los Angeles, CA',
 }
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+}
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
