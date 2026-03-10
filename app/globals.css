@@ -705,6 +705,11 @@ html, body {
   color: #ccc;
 }
 
+.page.dark .nav {
+  background: rgba(26, 26, 26, 0.95);
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
 .page.dark .nav a {
   color: rgba(255, 255, 255, 0.7);
 }
